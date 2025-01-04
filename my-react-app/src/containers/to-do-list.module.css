@@ -21,6 +21,12 @@
 }
 
 .table td{
+    display: table-cell;
+    vertical-align: inherit;
+    border-collapse: collapse;
+    text-align: center;
+    align-items: center;
+    width: 300px;
     border: 7px solid #242424;
     padding: 8px;
     color: rgb(0, 0, 0);
