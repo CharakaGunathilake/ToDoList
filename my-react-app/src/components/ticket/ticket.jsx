@@ -1,101 +1,93 @@
 import PropsType from "prop-types";
+import styles from "./ticket.module.css";
 
 function Ticket({
   index,
-  editable,
   task,
   taskList,
-  handleTaskRename,
   handleDeleteTask,
-  handleEditTask,
   handleStartTask,
   handleCompleteTask,
   handleMoveTaskUp,
   handleMoveTaskDown,
 }) {
-  const inputField = (
-    <input
-      type="text"
-      value={task.name}
-      onChange={(e) => {
-        handleTaskRename(e, index);
-      }}
-      autoFocus
-    />
-  );
-
   const todoTicket = (
-    <>
-      <span>{!editable ? task.name : inputField} </span>
-      <button
-        type="button"
-        title="Start Task"
-        onClick={() => handleStartTask(index, "up")}
-      >
-        📈
-      </button>
-      <button
-        type="button"
-        title="Complete Task"
-        onClick={() => handleCompleteTask(index)}
-      >
-        ✅
-      </button>
-      <button type="button" title="Edit" onClick={handleEditTask}>
-        ✍️
-      </button>
-      {index > 0 && (
+    <div className={styles.ticket}>
+      <span>
+        {task.name}: {task.description}
+      </span>
+      <div className={styles.hiddenButton}>
+        <button
+          className={styles.hiddenButton}
+          type="button"
+          title="Start Task"
+          onClick={() => handleStartTask(index, "up")}
+        >
+          📈
+        </button>
+        <button
+          className={styles.hiddenButton}
+          type="button"
+          title="Complete Task"
+          onClick={() => handleCompleteTask(index)}
+        >
+          ✅
+        </button>
+        {index > 0 && (
+          <button
+            type="button"
+            title="Move Up"
+            onClick={() => handleMoveTaskUp(index)}
+          >
+            ☝️
+          </button>
+        )}
+        {index < taskList.length - 1 && (
+          <button
+            type="button"
+            title="Move Down"
+            onClick={() => handleMoveTaskDown(index)}
+          >
+            👇
+          </button>
+        )}
         <button
           type="button"
-          title="Move Up"
-          onClick={() => handleMoveTaskUp(index)}
+          title="Delete"
+          onClick={() => handleDeleteTask(index)}
         >
-          ☝️
+          ❌
         </button>
-      )}
-      {index < taskList.length - 1 && (
-        <button
-          type="button"
-          title="Move Down"
-          onClick={() => handleMoveTaskDown(index)}
-        >
-          👇
-        </button>
-      )}
-      <button
-        type="button"
-        title="Delete"
-        onClick={() => handleDeleteTask(index)}
-      >
-        ❌
-      </button>
-    </>
+      </div>
+    </div>
   );
 
   const onGoingTicket = (
-    <>
+    <div className={styles.ticket}>
       <span>{task.name} </span>
-      <button
-        type="button"
-        title="Start Task"
-        onClick={() => handleStartTask(index, "down")}
-      >
-        📉
-      </button>
-      <button
-        type="button"
-        title="Complete Task"
-        onClick={() => handleCompleteTask(index)}
-      >
-        ✅
-      </button>
-    </>
+      <div className={styles.hiddenButton}>
+        <button
+          type="button"
+          title="Start Task"
+          onClick={() => handleStartTask(index, "down")}
+        >
+          📉
+        </button>
+        <button
+          type="button"
+          title="Complete Task"
+          onClick={() => handleCompleteTask(index)}
+        >
+          ✅
+        </button>
+      </div>
+    </div>
   );
 
   const doneTicket = (
-    <>
+    <div className={styles.ticket}>
       <span>{task.name} </span>
-    </>
+    </div>
   );
 
   if (task.status === "todo") {
@@ -110,12 +102,9 @@ function Ticket({
 }
 Ticket.propTypes = {
   index: PropsType.number,
-  editable: PropsType.bool,
   task: PropsType.object,
   taskList: PropsType.array,
-  handleTaskRename: PropsType.func,
   handleDeleteTask: PropsType.func,
-  handleEditTask: PropsType.func,
   handleStartTask: PropsType.func,
   handleCompleteTask: PropsType.func,
   handleMoveTaskUp: PropsType.func,

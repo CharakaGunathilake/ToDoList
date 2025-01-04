@@ -2,11 +2,11 @@
 import { useState, useRef } from "react";
 import Ticket from "../components/ticket/ticket";
 import AddTask from "../components/addtask/add-task";
+import styles from "./to-do-list.module.css";
 
 export default function ToDoList() {
   const columnRef = useRef(["todo", "ongoing", "done"]);
   const descriptionRef = useRef("");
-  const [editable, setEditable] = useState(false);
   const [task, setTask] = useState({
     name: "",
     description: "",
@@ -19,10 +19,15 @@ export default function ToDoList() {
   ]);
 
   const handleTaskOnChange = (e) => {
+    const name = e.target.value;
+    if (name.length > 30) {
+      console.log("Task name must be 10 characters or fewer.");
+      return;
+    }
     setTask((task) => {
       return {
         ...task,
-        name: e.target.value,
+        name: name,
         description: descriptionRef.current,
         status: "todo",
       };
@@ -51,13 +56,6 @@ export default function ToDoList() {
     });
   };
 
-  const handleTaskRename = (e, index) => {
-    setTaskList((prev) => {
-      const updatedTaskList = [...prev];
-      updatedTaskList[index].name = e.target.value;
-      return updatedTaskList;
-    });
-  };
   const handleCompleteTask = (index) => {
     setTaskList((prevTaskList) => {
       const updatedTaskList = [...prevTaskList];
@@ -82,9 +80,7 @@ export default function ToDoList() {
   const handleDeleteTask = (index) => {
     setTaskList((taskList) => taskList.filter((_, id) => id !== index));
   };
-  const handleEditTask = () => {
-    setEditable((prev) => !prev);
-  };
+
   const handleMoveTaskUp = (index) => {
     if (index > 0) {
       const updatedTaskList = [...taskList];
@@ -93,6 +89,7 @@ export default function ToDoList() {
       setTaskList(updatedTaskList);
     }
   };
+
   const handleMoveTaskDown = (index) => {
     if (index < taskList.length - 1) {
       const updatedTaskList = [...taskList];
@@ -141,19 +138,21 @@ export default function ToDoList() {
         You have {taskList.filter((task) => task.status === "done").length} of{" "}
         {taskList.length} completed Tasks
       </p>
+
       <div>
-        <table id="taskTable" border="1">
+        <table className={styles.table}>
           <thead>
             <tr>
-              <th>To-Do</th>
-              <th>On Going</th>
-              <th>Done</th>
+              <th className={styles.tableHeader}>To-Do</th>
+              <th className={styles.tableHeader}>On Going</th>
+              <th className={styles.tableHeader}>Done</th>
             </tr>
           </thead>
           <tbody>
             {taskList.map((task, index) => {
               return (
                 <tr
+                  className={styles.taskRow}
                   key={index}
                   onDrag={handleDragStart}
                   onDragOver={handleDragOver}
@@ -162,15 +161,17 @@ export default function ToDoList() {
                 >
                   {columnRef.current.map((column, colIndex) => {
                     return (
-                      <td key={colIndex} onDragOver={handleDragOver} draggable>
+                      <td
+                        style={styles.taskCell}
+                        key={colIndex}
+                        onDragOver={handleDragOver}
+                        draggable
+                      >
                         {task.status === column && (
                           <Ticket
-                            index={index}
-                            editable={editable}
                             task={task}
+                            index={index}
                             taskList={taskList}
-                            handleTaskRename={handleTaskRename}
-                            handleEditTask={handleEditTask}
                             handleStartTask={handleStartTask}
                             handleCompleteTask={handleCompleteTask}
                             handleDeleteTask={handleDeleteTask}

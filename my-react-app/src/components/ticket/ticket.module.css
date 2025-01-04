@@ -1,0 +1,53 @@
+.ticket {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: start;
+    font-size: 20px;
+    position: relative;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 10px;
+    background-color: hsla(0, 0%, 73%, 0.207);
+    color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+.ticket:hover {
+    cursor: grab;
+    color: rgb(255, 255, 255);
+    background-color: hsla(193, 71%, 47%, 0.484);
+    box-shadow: 5px 5px rgba(109, 108, 108, 0.844);
+    scale: 1.05;
+}
+
+.ticket:active {
+    cursor: grabbing;
+}
+
+.hiddenButton {
+    display: flex;
+    justify-content: center;
+    display: none;
+    /* Initially hide the buttons */
+    opacity: 0;
+    /* Make them fully transparent */
+    transition: opacity 1s ease, display 1s ease-in-out;
+    /* Smooth transition */
+}
+
+.ticket:hover .hiddenButton {
+    display: flex;
+    /* Show the buttons on hover */
+    opacity: 1;
+    /* Make them fully visible */
+}
+
+

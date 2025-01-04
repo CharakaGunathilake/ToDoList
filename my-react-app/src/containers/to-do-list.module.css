@@ -1,0 +1,27 @@
+.table{
+    border-collapse: collapse;
+    border: 7px solid #242424;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tableHeader{
+    width: 300px;
+    border: 7px solid #242424;
+    padding: 8px;
+    background-color: hsla(0, 0%, 22%, 0.893);
+    color: rgb(0, 0, 0);
+}
+
+.taskRow{
+    padding: 8px;
+    background-color: hsla(0, 0%, 22%, 0.2);
+    color: rgb(0, 0, 0);
+}
+
+.table td{
+    border: 7px solid #242424;
+    padding: 8px;
+    color: rgb(0, 0, 0);
+}
