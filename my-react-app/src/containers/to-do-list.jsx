@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import Ticket from "../components/ticket/ticket";
 import AddTask from "../components/addtask/add-task";
@@ -112,12 +111,6 @@ export default function ToDoList() {
     handleMoveTaskUp(index);
   };
 
-  const handleDragStartDown = (e, index) => {
-    e.dataTransfer.setData("index", index);
-  };
-  const handleDragOverDown = (e) => {
-    e.preventDefault();
-  };
   return (
     <>
       <AddTask
